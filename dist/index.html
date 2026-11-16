@@ -59,6 +59,8 @@
   .brand .ring-b { stroke: var(--gas); }
   header nav a { text-decoration: none; color: var(--muted); font-size: 15px; }
   header nav a:hover { color: var(--ink); }
+  header nav { display: flex; gap: 22px; }
+  @media (max-width: 560px) { header nav .nav-phone { display: none; } }
 
   .hero { padding: 72px 0 80px; }
   .eyebrow { margin: 0 0 18px; color: var(--gas); font-size: 14px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -83,7 +85,8 @@
   .band { background: var(--band); color: var(--band-ink); padding: 72px 0; }
   .band h2 { margin: 0; max-width: 20ch; font-size: clamp(28px, 4.4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; text-wrap: balance; }
   .band p { margin: 18px 0 0; max-width: 58ch; color: var(--band-muted); font-size: 18px; }
-  .band .mail { display: inline-block; margin-top: 28px; font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--band-ink); text-decoration-color: var(--ember); text-decoration-thickness: 3px; text-underline-offset: 6px; }
+  .band .contact { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 14px 40px; }
+  .band .mail { display: inline-block; font-size: clamp(20px, 3vw, 28px); font-weight: 600; color: var(--band-ink); text-decoration-color: var(--ember); text-decoration-thickness: 3px; text-underline-offset: 6px; }
 
   footer { padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
   footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
@@ -106,7 +109,7 @@
       </svg>
       argonite
     </a>
-    <nav><a href="mailto:jacob@argonite.co">jacob@argonite.co</a></nav>
+    <nav><a class="nav-phone" href="tel:+19299949222">(929) 994-9222</a><a href="mailto:jacob@argonite.co">jacob@argonite.co</a></nav>
   </div>
 </header>
 
@@ -162,7 +165,10 @@
     <div class="wrap">
       <h2>Not sure what you need yet? That is the right time to talk.</h2>
       <p>Describe the problem in your own words. You will get a straight read on what matters, what can wait, and whether you need outside help at all. No charge and no pitch.</p>
-      <a class="mail" href="mailto:jacob@argonite.co">jacob@argonite.co</a>
+      <div class="contact">
+        <a class="mail" href="mailto:jacob@argonite.co">jacob@argonite.co</a>
+        <a class="mail" href="tel:+19299949222">(929) 994-9222</a>
+      </div>
     </div>
   </section>
 </main>
