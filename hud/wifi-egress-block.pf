@@ -1,0 +1,36 @@
+# Wi-Fi egress block
+#
+# Drops everything this Mac tries to send out of the Wi-Fi interface, apart
+# from DHCP (so the lease and the association stay up). Other interfaces,
+# such as the phone tether, are not touched. Inbound is left to the macOS
+# application firewall.
+#
+# pf sees tunnel traffic on the Wi-Fi interface as plain UDP/TCP to the tunnel
+# endpoint, so a tunnel that should ride this Wi-Fi needs its own pass line
+# (template below). With no pass line, tunnels use the other interfaces.
+#
+# Load:    sudo pfctl -a com.apple/wifi-egress-block -f <this file>
+# Enable:  sudo pfctl -E
+# Show:    sudo pfctl -a com.apple/wifi-egress-block -s rules
+# Remove:  sudo pfctl -a com.apple/wifi-egress-block -F all
+#
+# Not persistent: a reboot clears it. It applies to the interface, so it stays
+# in force on any Wi-Fi network until removed.
+#
+# Not covered: ARP and other layer-2 frames, which pf does not filter.
+#
+# IMPORTANT: set $wifi to YOUR Wi-Fi device before loading. It is en0 on most
+# Macs, but not all. Confirm with:
+#   networksetup -listallhardwareports | grep -A1 'Wi-Fi'
+# If it prints a different device (e.g. en1), change the line below to match,
+# or this ruleset will block the wrong interface and leave Wi-Fi wide open.
+
+wifi = "en0"
+
+# DHCP client -> server
+pass out quick on $wifi inet proto udp from any port 68 to any port 67
+
+# Tunnel endpoint template (uncomment and fill in to tunnel over this Wi-Fi):
+# pass out quick on $wifi inet proto udp from any to 203.0.113.10 port 51820
+
+block drop out quick on $wifi all
